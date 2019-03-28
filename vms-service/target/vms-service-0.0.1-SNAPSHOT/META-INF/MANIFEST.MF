@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Created-By: Apache Maven 3.6.0
+Built-By: ravik
+Build-Jdk: 11.0.1
+Implementation-Title: vms-service
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.stg.vms
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/vms-service
+Main-Class: org.springframework.boot.loader.JarLauncher
+Start-Class: com.stg.vms.VmsServiceApplication
+Spring-Boot-Version: 2.1.3.RELEASE
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+

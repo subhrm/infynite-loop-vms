@@ -1,0 +1,31 @@
+.background {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+.background-img {
+  z-index: -1;
+  // background-position: center;
+  height: 100%;
+  width: 100%;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  opacity: .1;
+  // background-position: center;
+  // background-image: url('../assets/images/ccc-bg.jpg');
+  // position: relative;
+}
+
+.infy-logo{
+	z-index: 2;
+	position: absolute;
+	height:40px;
+	width: 100px;
+	top: 10px;
+	left: 10px;
+}
+
+// .router-content{
+	
+// }

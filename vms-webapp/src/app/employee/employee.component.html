@@ -1,0 +1,134 @@
+<div class="employee-container">
+  <mat-card class="header-card">
+    <mat-card-content>
+      <mat-card-title class="card-header">Visitor Details
+        <button mat-raised-button style="float:right" (click)="submitRequest()">Save</button>
+      </mat-card-title>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="employee-card">
+    <!-- <mat-card-header class="card-header">
+    <mat-card-title style="margin-left: -16px">Visitor Details</mat-card-title>
+
+  </mat-card-header> -->
+    <form>
+      <mat-card-content class="input-items">
+        <!-- <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="visitor.name" name="name" required>
+    </mat-form-field> -->
+
+        <!-- <mat-form-field>
+      <input matInput placeholder="Email" [(ngModel)]="visitor.email" required>
+    </mat-form-field> -->
+        <!-- <p> -->
+        <table class="filter-list">
+          <tr>
+            <td>
+              <mat-form-field>
+                <mat-label>Visitor Type</mat-label>
+                <mat-select [formControl]="accessType">
+                  <mat-option *ngFor="let access of visitorTypeAccess" [value]="access.typeCode">{{access.typeDesc}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-label>Existing Dependents</mat-label>
+                <mat-select [formControl]="dependents" (selectionChange)="dependentsSelected()" multiple [disabled]="accessType.value !== 'FAMILY'">
+                  <mat-option *ngFor="let dependent of existingDependentsLst" [value]="dependent.name">{{dependent.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tbody *ngFor="let dependent of dependentsLst; let i = index" [attr.data-index]="i">
+            <tr>
+              <td rowspan="2">{{i+1}}.</td>
+              <!-- <td><img class="visitor-img" src="assets/images/ccc-bg.jpg" alt="visitor_img"></td> -->
+
+              <ng-container [ngTemplateOutlet]="dependent.photo ? withImage : noImage" [ngTemplateOutletContext]="{i:i, dependent:dependent}">
+              </ng-container>
+              <td class="visitor-detail">
+                <mat-form-field>
+                  <input matInput placeholder="Name" [value]="dependent.name" name="name" (change)="addData(i, 'name', $event)" required>
+                </mat-form-field>
+              </td>
+              <td class="visitor-detail">
+                <mat-form-field>
+                  <input matInput placeholder="Relation" [value]="dependent.relation" name="relation" (change)="addData(i, 'relation', $event)" [disabled]="accessType.value !== 'FAMILY'" required>
+                </mat-form-field>
+              </td>
+              <td class="visitor-detail">
+                <mat-form-field>
+                  <input matInput placeholder="Email" [value]="dependent.email" (change)="addData(i, 'email', $event)" required>
+                  <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                </mat-form-field>
+              </td>
+              <td class="visitor-detail">
+                <mat-form-field>
+                  <input matInput placeholder="Mobile" [value]="dependent.mobile" (change)="addData(i, 'mobile', $event)" name="mobile" required>
+                </mat-form-field>
+
+              </td>
+            </tr>
+            <tr>
+              <!-- <td>&nbsp;</td><td>&nbsp;</td> -->
+              <td class="visitor-detail">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="pickerStart" placeholder="In Time" (dateInput)="addDate(i, 'inTime', $event)"
+                    (dateChange)="addDate(i, 'inTime', $event)">
+                  <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                  <mat-datepicker type="datetime" clockStep="5" #pickerStart></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td class="visitor-detail">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="pickerEnd" placeholder="Out Time" (dateInput)="addDate(i, 'outTime', $event)"
+                    (dateChange)="addDate(i, 'outTime', $event)">
+                  <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                  <mat-datepicker type="datetime" clockStep="5" #pickerEnd></mat-datepicker>
+                </mat-form-field>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <p><img src="assets/images/add.png" class="add-visitor-icon" (click)="addNewVisitor()"><label class="add-visitor-text"
+            (click)="addNewVisitor()">&nbsp;Add Visitor</label></p>
+
+
+        <!-- </p> -->
+        <!-- 
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedVisitorType" placeholder="Visitor Type" required>
+        <mat-option *ngFor="let visitor of visitorType" value="{{visitor.visitor_type_cd}}">
+          {{visitor.visitor_type_cd}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+      </mat-card-content>
+    </form>
+  </mat-card>
+</div>
+
+<ng-template #withImage let-dependent="dependent">
+  <td rowspan="2">
+    <img class="visitor-img" [src]="dependent.photo" alt="visitor_img">
+  </td>
+</ng-template>
+
+
+<ng-template #noImage let-i=i>
+  <td rowspan="2">
+    <label for=file>
+      <span>
+        <img class="visitor-img-upload" src="assets/images/visitor-img.png" alt="visitor_img">
+        <span class="click-to-upload">Click to upload</span>
+        <input type="file" name="file" id="file" class="inputfile" accept="image/png, image/jpeg" (change)="uploadImage($event,i)"></span>
+    </label>
+  </td>
+</ng-template>
+
+<!-- <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader> -->

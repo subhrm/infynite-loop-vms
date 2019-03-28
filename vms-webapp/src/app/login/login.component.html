@@ -1,0 +1,25 @@
+<!-- Material form login -->
+<mat-card class="login-card">
+
+  <mat-card-header class="card-header">
+      <mat-card-title style="margin-left: -16px">Sign in</mat-card-title>
+  </mat-card-header>
+  <form>
+  <mat-card-content class="px-lg-5 pt-0 input-items">
+
+      <mat-form-field>
+        <input matInput placeholder="Email" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Password" [formControl]="pass" [type]="hide ? 'password' : 'text'" required>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error *ngIf="pass.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary" (click)="login()" class="login-button">Login</button>
+
+  </mat-card-content>
+  </form>
+</mat-card>
